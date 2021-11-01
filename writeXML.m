@@ -1,26 +1,26 @@
 function writeXML(cameraParam,file)
 %writeXML(cameraParams,file)
-%¹¦ÄÜ£º½«Ïà»úĞ£ÕıµÄ²ÎÊı±£´æÎªxmlÎÄ¼ş
-%ÊäÈë£º
-%cameraParams£ºÏà»úĞ£ÕıÊı¾İ½á¹¹
-%file£ºxmlÎÄ¼şÃû
-%ËµÃ÷ÔÚxmlÎÄ¼şÊÇÓÉÒ»²ã²ãµÄ½Úµã×é³ÉµÄ¡£
-%Ê×ÏÈ´´½¨¸¸½Úµã fatherNode£¬
-%È»ºó´´½¨×Ó½Úµã childNode=docNode.createElement(childNodeName)£¬
-%ÔÙ½«×Ó½ÚµãÌí¼Óµ½¸¸½Úµã fatherNode.appendChild(childNode)
-docNode = com.mathworks.xml.XMLUtils.createDocument('opencv_storage'); %´´½¨xmlÎÄ¼ş¶ÔÏó
-docRootNode = docNode.getDocumentElement; %»ñÈ¡¸ù½Úµã
+%åŠŸèƒ½ï¼šå°†ç›¸æœºæ ¡æ­£çš„å‚æ•°ä¿å­˜ä¸ºxmlæ–‡ä»¶
+%è¾“å…¥ï¼š
+%cameraParamsï¼šç›¸æœºæ ¡æ­£æ•°æ®ç»“æ„
+%fileï¼šxmlæ–‡ä»¶å
+%è¯´æ˜åœ¨xmlæ–‡ä»¶æ˜¯ç”±ä¸€å±‚å±‚çš„èŠ‚ç‚¹ç»„æˆçš„ã€‚
+%é¦–å…ˆåˆ›å»ºçˆ¶èŠ‚ç‚¹ fatherNodeï¼Œ
+%ç„¶ååˆ›å»ºå­èŠ‚ç‚¹ childNode=docNode.createElement(childNodeName)ï¼Œ
+%å†å°†å­èŠ‚ç‚¹æ·»åŠ åˆ°çˆ¶èŠ‚ç‚¹ fatherNode.appendChild(childNode)
+docNode = com.mathworks.xml.XMLUtils.createDocument('opencv_storage'); %åˆ›å»ºxmlæ–‡ä»¶å¯¹è±¡
+docRootNode = docNode.getDocumentElement; %è·å–æ ¹èŠ‚ç‚¹
 
-IntrinsicMatrix = (cameraParam.IntrinsicMatrix)'; %Ïà»úÄÚ²Î¾ØÕó
-RadialDistortion = cameraParam.RadialDistortion; %Ïà»ú¾¶Ïò»û±ä²ÎÊıÏòÁ¿1*3
-TangentialDistortion =cameraParam.TangentialDistortion; %Ïà»úÇĞÏò»û±äÏòÁ¿1*2
-Distortion = [RadialDistortion(1:2),TangentialDistortion,RadialDistortion(3)]; %¹¹³ÉopencvÖĞµÄ»û±äÏµÊıÏòÁ¿[k1,k2,p1,p2,k3]
+IntrinsicMatrix = (cameraParam.IntrinsicMatrix)'; %ç›¸æœºå†…å‚çŸ©é˜µ
+RadialDistortion = cameraParam.RadialDistortion; %ç›¸æœºå¾„å‘ç•¸å˜å‚æ•°å‘é‡1*3
+TangentialDistortion =cameraParam.TangentialDistortion; %ç›¸æœºåˆ‡å‘ç•¸å˜å‘é‡1*2
+Distortion = [RadialDistortion(1:2),TangentialDistortion,RadialDistortion(3)]; %æ„æˆopencvä¸­çš„ç•¸å˜ç³»æ•°å‘é‡[k1,k2,p1,p2,k3]
 
-camera_matrix = docNode.createElement('camera-matrix'); %´´½¨mat½Úµã
-camera_matrix.setAttribute('type_id','opencv-matrix'); %ÉèÖÃmat½ÚµãÊôĞÔ
-rows = docNode.createElement('rows'); %´´½¨ĞĞ½Úµã
-rows.appendChild(docNode.createTextNode(sprintf('%d',3))); %´´½¨ÎÄ±¾½Úµã£¬²¢×÷ÎªĞĞµÄ×Ó½Úµã
-camera_matrix.appendChild(rows); %½«ĞĞ½Úµã×÷Îªmat×Ó½Úµã
+camera_matrix = docNode.createElement('camera_matrix'); %åˆ›å»ºmatèŠ‚ç‚¹
+camera_matrix.setAttribute('type_id','opencv-matrix'); %è®¾ç½®matèŠ‚ç‚¹å±æ€§
+rows = docNode.createElement('rows'); %åˆ›å»ºè¡ŒèŠ‚ç‚¹
+rows.appendChild(docNode.createTextNode(sprintf('%d',3))); %åˆ›å»ºæ–‡æœ¬èŠ‚ç‚¹ï¼Œå¹¶ä½œä¸ºè¡Œçš„å­èŠ‚ç‚¹
+camera_matrix.appendChild(rows); %å°†è¡ŒèŠ‚ç‚¹ä½œä¸ºmatå­èŠ‚ç‚¹
 
 reprojection_error = docNode.createElement('reprojection_error');
 reprojection_error.appendChild(docNode.createTextNode(sprintf('%f',cameraParam.MeanReprojectionError)));
