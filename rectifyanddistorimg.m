@@ -15,8 +15,10 @@ parfor i=1:length(c1imgnames)
     [c1Rect, c2Rect] = rectifyStereoImages(c1, c2, stereoParams);
     c1Undistorted = undistortImage(c1,stereoParams.CameraParameters1);
     c2Undistorted = undistortImage(c2,stereoParams.CameraParameters2);
-    imwrite(c1Rect', [c1_rectify_path c1imgnames(i).name]);
-    imwrite(c2Rect', [c2_rectify_path c1imgnames(i).name]);
+    c1_rotate = imrotate(c1Rect, -90);
+    c2_rotate = imrotate(c2Rect, -90);
+    imwrite(c1_rotate, [c1_rectify_path c1imgnames(i).name]);
+    imwrite(c2_rotate, [c2_rectify_path c1imgnames(i).name]);
     imwrite(c1Undistorted, [c1_distortion_path c1imgnames(i).name]);
     imwrite(c2Undistorted, [c2_distortion_path c1imgnames(i).name]);
     fprintf('the process is %6.2f / %6.2f \n', i, length(c1imgnames) );
